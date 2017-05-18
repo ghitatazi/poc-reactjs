@@ -1,10 +1,10 @@
 
 import { combineReducers } from 'redux';
-import { ActionConstants } from '../constants/actions/ActionConstants';
+import { SELECT_FEED, INVALIDATE_FEED, REQUEST_DATAPOINTS, RECEIVE_DATAPOINTS, RECEIVE_LAST_VALUE } from '../constants/actions/ActionConstants';
 
 const selectedFeed = (state = '1', action) => { // 1 correspond à l'id du flux 1
   switch (action.type) {
-    case ActionConstants.SELECT_FEED:
+    case SELECT_FEED:
       return action.feed;
     default:
       return state;
@@ -18,23 +18,23 @@ const datapoints = (state = {
   items: [] }
   , action) => {
   switch (action.type) {
-    case ActionConstants.INVALIDATE_FEED:
+    case INVALIDATE_FEED:
       return Object.assign({}, state, {
         didInvalidate: true,
       });
-    case ActionConstants.REQUEST_DATAPOINTS:
+    case REQUEST_DATAPOINTS:
       return Object.assign({}, state, {
         isFetching: true,
         didInvalidate: false,
       });
-    case ActionConstants.RECEIVE_DATAPOINTS:
+    case RECEIVE_DATAPOINTS:
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,
         items: action.datapoints,
         lastUpdated: action.receivedAt,
       });
-    case ActionConstants.RECEIVE_LAST_VALUE:
+    case RECEIVE_LAST_VALUE:
       return Object.assign({}, state, {
         lastValue: [action.lastValue],
       });
@@ -45,10 +45,10 @@ const datapoints = (state = {
 
 const datapointsByFeed = (state = {}, action) => {
   switch (action.type) {
-    case ActionConstants.INVALIDATE_FEED:
-    case ActionConstants.REQUEST_DATAPOINTS:
-    case ActionConstants.RECEIVE_DATAPOINTS:
-    case ActionConstants.RECEIVE_LAST_VALUE:
+    case INVALIDATE_FEED:
+    case REQUEST_DATAPOINTS:
+    case RECEIVE_DATAPOINTS:
+    case RECEIVE_LAST_VALUE:
       return Object.assign({}, state, {
         [action.feed]: datapoints(state[action.feed], action),
       });
