@@ -1,25 +1,25 @@
-import { ActionConstants } from '../constants/actions/ActionConstants';
+import { SELECT_FEED, INVALIDATE_FEED, REQUEST_DATAPOINTS, RECEIVE_DATAPOINTS, REQUEST_LAST_VALUE, RECEIVE_LAST_VALUE, FIRE_ROUTE_TRANSITION  } from '../constants/actions/ActionConstants';
 import 'babel-polyfill';
 import fetch from 'isomorphic-fetch';
 import getCookie from '../utilities/getCookie';
 
 export const selectFeed = (feed) => {
   return {
-    type: ActionConstants.SELECT_FEED,
+    type: SELECT_FEED,
     feed,
   };
 };
 
 export const invalidateFeed = (feed) => {
   return {
-    type: ActionConstants.INVALIDATE_FEED,
+    type: INVALIDATE_FEED,
     feed,
   };
 };
 
 export const requestDatapoints = (feed) => {
   return {
-    type: ActionConstants.REQUEST_DATAPOINTS,
+    type: REQUEST_DATAPOINTS,
     feed,
   };
 };
@@ -27,7 +27,7 @@ export const requestDatapoints = (feed) => {
 export const receiveDatapoints = (feed, json) => {
   // here apply the DatapointsFormatter on the data
   return {
-    type: ActionConstants.RECEIVE_DATAPOINTS,
+    type: RECEIVE_DATAPOINTS,
     feed,
     datapoints: json,
     receivedAt: Date.now(),
@@ -36,13 +36,13 @@ export const receiveDatapoints = (feed, json) => {
 
 export const requestLastValue = (feed) => {
   return {
-    type: ActionConstants.REQUEST_LAST_VALUE,
+    type: REQUEST_LAST_VALUE,
   };
 };
 
 export const receiveLastValue = (feed, json) => {
   return {
-    type: ActionConstants.RECEIVE_LAST_VALUE,
+    type: RECEIVE_LAST_VALUE,
     feed,
     lastValue: json,
   };
@@ -121,7 +121,7 @@ export const getLastValue = (feed) => {
 export const routeLocationDidUpdate = (location) => {
   console.log('action ROUTE_TRANSITION');
   return {
-    type: ActionConstants.FIRE_ROUTE_TRANSITION,
+    type: FIRE_ROUTE_TRANSITION,
     location,
   };
 };
